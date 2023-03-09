@@ -3,17 +3,28 @@
 #include <cmath>
 using namespace std;
 
-enum Estado : string {Nuevo, BienConservado, Roto};
 
-class Objeto{
+
+class Objeto {
+
     private:
             bool estaPrestado;
             string nombre;
             int anioComprado;
             Ninio* prestado;
-            Estado estadoObjeto;
+            Estado _est;
     public:
-        virtual string toString() = 0;
+            virtual string toString() = 0;
+
+            enum Estado {Nuevo = 0, BienConservado = 1, Roto = 2};
+
+            void setEstado(Estado estado)
+            {
+                _est = estado;
+            }
+            Estado getEstado() {
+                return _est;
+            }
 
 };
 
