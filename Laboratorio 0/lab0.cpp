@@ -1,117 +1,48 @@
-#include <stdio.h>
-#include <iostream>
-#include <cmath>
-using namespace std;
+#include "lab0.hpp"
 
-enum Estado {Nuevo,BienConservado,Roto};
+//METODOS OBJETO ----------------------------------------------------
 
-// niño
-class Ninio {
-private:
-    string nombre;
-    int edad;
-    string direccion;
-    string telefono;
-
-    ListaObjetos *listaObjetos;
-
-public:
-    Ninio(string nombre, int edad, string direccion, string telefono);
-    ~Ninio();
-    void prestarObjeto(Objeto *objeto);
-    void quitarObjeto(Objeto *objeto);
-    void listarObjetosPrestados();
-
-};
-
-class nodo {
-
-    private:
-        Objeto *dato;
-        nodo *sig;
-
-    public:
-        nodo(Objeto *objeto, nodo *sig);
-        Objeto *objeto();
-        nodo *getSig();
-        void setSig(nodo *sig);
-};
-
-class ListaObjetos {
-    private:
-        nodo *primero;
-
-    public:
-        ListaObjetos();
-        ~ListaObjetos();
-        void agregar(Objeto *objeto);
-        void quitar(Objeto *objeto);
-        nodo *getPrimero();
-};
-
-
-//Objeto
-class Objeto {
-
-    private: 
-            string nombre;
-            int anioComprado;
-            bool estaPrestado;
-            Ninio* prestado;
-            Estado _est;
-    public:
-            Objeto(string,int,string);
-
-            void setEstado(Estado estado)
-            {
-                _est = estado;
-            };
-            Estado getEstado() {
-                return _est;
-            };
-            virtual string toString() = 0;
-};
-
-
-//LIBRO
-class Libro : public Objeto{
-    private:
-      string autor;
-      int cantPaginas;
-    public:
-      Libro(string,int,string,int,string);
-      virtual string toString();
-      void setAutor(string);
-      string getAutor(); 
-      void setCantPaginas(int);
-      int getCantPaginas();  
-};
-
-class JuegoMesa : public Objeto{
-
-    private:
-        int edadRecomendada;
-        int cantJugadores;
-        
-    public:
-        JuegoMesa(int,int,string,int,string);
-        virtual string toString();
-        JuegoMesa JuegoUno(JuegoMesa j);
-        JuegoMesa MazoDeCartas(JuegoMesa j);
-        JuegoMesa Datos(JuegoMesa j);
-};
-
-Objeto::Objeto(string nomb, int anio, string estado){
-    if(estado == "Nuevo") this->_est = Nuevo;
+Objeto::Objeto(string nombre, int anio, string estado){
+    if(estado == "Nuevo") this->estado_actual = Nuevo;
     else 
-    if(estado == "BienConservado") this->_est = BienConservado;
+    if(estado == "BienConservado") this->estado_actual = BienConservado;
     else 
-    if(estado == "Roto") this->_est = Roto;
-    this->nombre = nomb;
-    this->anioComprado = anio;
-    this->estaPrestado = false;
+    if(estado == "Roto") this->estado_actual = Roto;
+    this->nombre = nombre;
+    this->anio_comprado = anio;
+    this->esta_prestado = false;
     this->prestado = nullptr;
 }
+
+Objeto::~Objeto(){};
+
+int Objeto::getAnioComprado(){
+    return this->anio_comprado;
+}
+
+bool Objeto::estaEnPrestamo(){
+    return this->esta_prestado;
+    
+}
+
+Ninio* Objeto::prestadoA(){
+    return this->prestado;
+}
+
+Estado Objeto::getEstado(){
+    return this->estado_actual;
+}
+
+string Objeto::getEstadoString(){
+    if(estado_actual == Nuevo) return "Nuevo";
+    else 
+    if(estado_actual == BienConservado) return "BienConservado";
+    else 
+    if(estado_actual == Roto) return "Roto";
+    else return "SIN ESTADO ACTUAL";
+}
+
+//TERMINA METODOS OBJETO --------------------------------------------
 
 Libro::Libro(string autor,int cant_pag, string nomb, int anio,string estado) : Objeto(nomb,anio,estado){
  this->autor = autor;
@@ -143,8 +74,6 @@ int Libro::getCantPaginas(){
 string Libro::toString(){ //Nombre, AñoComprado, Estado, Autor, CantPaginas
     
 }
-
-
 
 
 nodo::nodo(Objeto *objeto, nodo *sig) {
@@ -219,6 +148,9 @@ Ninio::~Ninio() {
 
 }
 
+// hay que actualizar la direccion del objeto ingresado para que apunte a Ninio
+// y cambiar bool esta_prestado; a true
+// creo que habria que pasar por referencia el objeto
 void Ninio::prestarObjeto(Objeto *objeto) {
    this->listaObjetos->agregar(objeto);
 }
@@ -236,6 +168,7 @@ void Ninio::listarObjetosPrestados() {
     }
     actual->objeto()->toString();
 }
+
 
 
 int main(){
