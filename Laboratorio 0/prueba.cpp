@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
-#include <string>
 using namespace std;
 
-enum Estado {Nuevo , BienConservado, Roto};
+enum Estado {Nuevo,BienConservado,Roto};
 
 // niño
 class Ninio {
@@ -89,9 +88,11 @@ class Libro : public Objeto{
 };
 
 class JuegoMesa : public Objeto{
+
     private:
         int edadRecomendada;
         int cantJugadores;
+        
     public:
         JuegoMesa(int,int,string,int,string);
         virtual string toString();
@@ -109,7 +110,7 @@ Objeto::Objeto(string nomb, int anio, string estado){
     this->nombre = nomb;
     this->anioComprado = anio;
     this->estaPrestado = false;
-    this->prestado = NULL;
+    this->prestado = nullptr;
 }
 
 Libro::Libro(string autor,int cant_pag, string nomb, int anio,string estado) : Objeto(nomb,anio,estado){
