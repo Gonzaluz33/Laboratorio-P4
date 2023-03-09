@@ -16,15 +16,16 @@ class Objeto {
     public:
             virtual string toString() = 0;
 
-            enum Estado {Nuevo = 0, BienConservado = 1, Roto = 2};
+            enum Estado : string {Nuevo , BienConservado, Roto};
 
-            void setEstado(Estado estado)
+            void setEstado(string estado)
             {
                 _est = estado;
-            }
+            };
+            
             Estado getEstado() {
                 return _est;
-            }
+            };
 
 };
 
