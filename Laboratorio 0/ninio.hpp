@@ -16,8 +16,8 @@ private:
 public:
     Ninio(string nombre, int edad, string direccion, string telefono);
     ~Ninio();
-    void prestarObjeto(Objeto*);
-    void quitarObjeto(Objeto*);
+    void prestarObjeto(Objeto*&);
+    void quitarObjeto(Objeto*&);
     void listarObjetosPrestados();
 
 };

@@ -16,21 +16,33 @@ Objeto::Objeto(string nombre, int anio, string estado){
 
 Objeto::~Objeto(){};
 
+string Objeto::getNombre(){
+    return this->nombre;
+}
+
 int Objeto::getAnioComprado(){
     return this->anio_comprado;
 }
 
-bool Objeto::estaEnPrestamo(){
-    return this->esta_prestado;
-    
+Estado Objeto::getEstadoActual(){
+    return this->estado_actual;
 }
 
-Ninio* Objeto::prestadoA(){
+bool Objeto::getEstaPrestado(){
+    return this->esta_prestado;
+}
+
+Ninio* Objeto::getPrestadoA(){
     return this->prestado;
 }
 
-Estado Objeto::getEstado(){
-    return this->estado_actual;
+void Objeto::setPrestarA(Ninio* ninio){
+    this->prestado = ninio;
+}
+
+void Objeto::setEstaEnPrestamo(bool b){
+    this->esta_prestado = b;
+
 }
 
 string Objeto::getEstadoString(){
@@ -44,17 +56,16 @@ string Objeto::getEstadoString(){
 
 //TERMINA METODOS OBJETO --------------------------------------------
 
+
+
+
+//IMPLEMENTACIONES LIBRO
+
 Libro::Libro(string autor,int cant_pag, string nomb, int anio,string estado) : Objeto(nomb,anio,estado){
  this->autor = autor;
  this->cantPaginas = cant_pag;
 }
 
-JuegoMesa::JuegoMesa(int edad_rec, int cant_jug,string nomb, int anio,string estado) : Objeto(nomb,anio,estado){
-this->edadRecomendada = edad_rec;
-this->cantJugadores = cant_jug;
-}
-
-//implementaciones
 void Libro::setAutor(string autor){
     this->autor = autor;
 }
@@ -74,6 +85,19 @@ int Libro::getCantPaginas(){
 string Libro::toString(){ //Nombre, AñoComprado, Estado, Autor, CantPaginas
     
 }
+
+//TERMINA IMPLEMENTACIONES LIBRO
+
+
+//IMPLEMENTACIONES JUEGOMESA
+JuegoMesa::JuegoMesa(int edad_rec, int cant_jug,string nombre, int anio,string estado) : Objeto(nombre,anio,estado){
+this->edadRecomendada = edad_rec;
+this->cantJugadores = cant_jug;
+}
+
+//TERMINA IMPLEMENTACIONES JUEGOMESA
+
+
 
 
 nodo::nodo(Objeto *objeto, nodo *sig) {
@@ -151,12 +175,16 @@ Ninio::~Ninio() {
 // hay que actualizar la direccion del objeto ingresado para que apunte a Ninio
 // y cambiar bool esta_prestado; a true
 // creo que habria que pasar por referencia el objeto
-void Ninio::prestarObjeto(Objeto *objeto) {
+void Ninio::prestarObjeto(Objeto* &objeto) {
    this->listaObjetos->agregar(objeto);
+   objeto->setPrestarA(this);
+   objeto->setEstaEnPrestamo(true);
 }
 
-void Ninio::quitarObjeto(Objeto *objeto) {
+void Ninio::quitarObjeto(Objeto* &objeto) {
     this->listaObjetos->quitar(objeto);
+    objeto->setPrestarA(nullptr);
+    objeto->setEstaEnPrestamo(false);
 }
 
 void Ninio::listarObjetosPrestados() {
@@ -169,9 +197,48 @@ void Ninio::listarObjetosPrestados() {
     actual->objeto()->toString();
 }
 
+//TERMINA IMPLEMENTACIONES NINIO Y LISTA OBJETOS
+
+
+//IMPLEMENTACION OBJETO ROTO--------------------------------------------
+
+
+DtObjetoRoto::DtObjetoRoto(string Nombre_obj,bool Pres,string Nombre_niño){
+    this->NombreObjeto = Nombre_obj;
+    this->Prestado = Pres;
+    this->NombreNiño = Nombre_niño;
+}
+
+void DtObjetoRoto::setNombreObjeto(string s){
+    this->NombreObjeto = s;
+}
+
+string DtObjetoRoto::getNombreObjeto(){
+    return this->NombreObjeto;
+}
+
+void DtObjetoRoto::setPrestado(bool b){
+    this->Prestado = b;
+}
+
+bool DtObjetoRoto::getPrestado(){
+    return this->Prestado;
+}
+
+void DtObjetoRoto::setNombreNiño(string s){
+    this->NombreNiño = s;
+}
+
+string DtObjetoRoto::getNombreNiño(){
+    return this->NombreNiño;
+}
+
+//TERMINA OBJETO ROTO--------------------------------------------
+
 
 
 int main(){
+    JuegoMesa Juego1 = JuegoMesa(7,10,"Juego1",2022,"Roto");
 
     return 0;
 }

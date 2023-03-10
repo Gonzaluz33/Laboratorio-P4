@@ -33,7 +33,7 @@ class JuegoMesa : public Objeto{
         int cantJugadores;
         
     public:
-        JuegoMesa(int,int,string,int,string);
+        JuegoMesa(int edad_rec,int cant_jug,string nombre,int anio,string estado);
         virtual string toString();
         JuegoMesa JuegoUno(JuegoMesa j);
         JuegoMesa MazoDeCartas(JuegoMesa j);

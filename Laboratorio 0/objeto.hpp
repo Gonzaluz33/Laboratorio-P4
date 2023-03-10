@@ -9,16 +9,19 @@ class Objeto {
     private: 
             string nombre;
             int anio_comprado;
+            Estado estado_actual;
             bool esta_prestado;
             Ninio* prestado;
-            Estado estado_actual;
     public:
-            Objeto(string,int,string);
+            Objeto(string nombre,int anio,string estado);
             ~Objeto();
+            string getNombre();
             int getAnioComprado();
-            bool estaEnPrestamo();
-            Ninio* prestadoA();
-            Estado getEstado();
+            Estado getEstadoActual();
+            bool getEstaPrestado();
+            Ninio* getPrestadoA();
+            void setPrestarA(Ninio*);
+            void setEstaEnPrestamo(bool);
             string getEstadoString();
             virtual string toString() = 0;
 };
