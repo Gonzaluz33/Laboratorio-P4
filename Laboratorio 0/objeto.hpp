@@ -2,7 +2,7 @@
 #define OBJETO_HPP
 
 using namespace std;
-#include "ninio.hpp"
+
 //Objeto
 class Objeto {
 

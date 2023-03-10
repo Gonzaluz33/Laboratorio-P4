@@ -1,7 +1,7 @@
 #ifndef LISTAOBJETOS_HPP // include guard
 #define LISTAOBJETOS_HPP
 using namespace std;
-#include "objeto.hpp"
+
 
 class nodo {
 

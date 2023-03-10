@@ -2,7 +2,7 @@
 #define NINIO_HPP
 
 using namespace std;
-#include "listaobjetos.hpp"
+
 //NIÑO
 class Ninio {
 private:
